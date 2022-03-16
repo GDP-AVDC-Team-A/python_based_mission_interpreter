@@ -1,0 +1,28 @@
+<launch>
+  <arg name="drone_id_namespace" default="drone1" />
+  <arg name="drone_id_int" default="1" />
+  <arg name="my_stack_directory" default="$(env AEROSTACK_STACK)" />
+  <arg name="mission_configuration_folder" default="$(env AEROSTACK_STACK)/configs/drone1" />
+  <arg name="mission" default="mission.py" />
+
+  <group ns="$(arg drone_id_namespace)">
+    <node name="python_based_mission_interpreter_process"
+          pkg="python_based_mission_interpreter_process"
+          type="pml_mission_interpreter_process.py"
+          output="screen">
+      <param name="drone_id"
+             value="$(arg drone_id_int)"
+             type="string" />
+      <param name="mission"
+             value="$(arg mission)"
+             type="string" />
+      <param name="stack_directory"
+             value="$(arg my_stack_directory)"
+             type="string" />
+       <param name="mission_configuration_folder" value="$(arg mission_configuration_folder)" />
+    </node>
+    <!-- <test test-name="pml_mission_interpreter_process_test" -->
+    <!--       pkg="pml_mission_interpreter_process" -->
+    <!--       type="pml_mission_interpreter_process_test" /> -->
+  </group>
+</launch>
